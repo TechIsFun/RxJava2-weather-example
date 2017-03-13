@@ -1,22 +1,25 @@
 package com.github.techisfun;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.github.techisfun.api.DarkSkyApi;
 
 import okhttp3.HttpUrl;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE_PERMISSION = 2;
 
     private DarkSkyApi mDarkSkyApi;
 
@@ -38,9 +41,41 @@ public class MainActivity extends AppCompatActivity {
 
         mDarkSkyApi = Utils.buildDarkSkyInstance(HttpUrl.parse("https://api.darksky.net"));
 
-        // TODO: request location permissions
+        checkLocationPermission();
 
         // TODO: get user location
+    }
+
+    private void checkLocationPermission() {
+        final String locationPermission = Manifest.permission.ACCESS_FINE_LOCATION;
+        try {
+            if (ActivityCompat.checkSelfPermission(this, locationPermission) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{locationPermission}, REQUEST_CODE_PERMISSION);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_PERMISSION) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                requestLocation();
+            } else {
+                displayPermissionError();
+            }
+        }
+
+    }
+
+    private void requestLocation() {
+        // TODO
+    }
+
+    private void displayPermissionError() {
+        finish();
     }
 
     @Override
