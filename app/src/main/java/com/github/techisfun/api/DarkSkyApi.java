@@ -13,7 +13,7 @@ public interface DarkSkyApi {
      */
     @GET("forecast/{key}/{latitude},{longitude}")
     Observable<JsonObject> forecast(@Path("key") String apiKey,
-                                    @Path("latitude") float latitude,
-                                    @Path("longitude") float longitude);
+                                    @Path("latitude") double latitude,
+                                    @Path("longitude") double longitude);
 
 }
