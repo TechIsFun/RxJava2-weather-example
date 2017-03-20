@@ -126,13 +126,17 @@ MyObserver myObserver = new MyObserver()
 
 ---
  
-# ReactiveX: A combination of the best ideas from the Observer pattern, the Iterator pattern and functional programming {.big}
+# ReactiveX 
+
+## A combination of the best ideas from the Observer pattern, the Iterator pattern and functional programming {.big}
 
 [http://reactivex.io](http://reactivex.io/)
 
 ---
 
-# RxJava: A library that implements the concepts of ReactiveX in Java {.big}
+# RxJava
+
+## A library that implements the concepts of ReactiveX in Java {.big}
 
 Available also for other languages: C++ (RxCpp), C# (Rx.NET), Unity (UniRx), JavaScript (RxJS), Scala (RxScala), Clojure (RxClojure), Ruby (Rx.rb), Python (RxPY), Groovy (RxGroovy), JRuby (RxJRuby), Kotlin (RxKotlin), Swift (RxSwift), PHP (RxPHP)
 
@@ -386,7 +390,7 @@ RxView.clicks(mButton)
 # onNext, onCompleted, onError
 
 ```java
-Observable<String> observable = ...
+Observable<String> observable = Observable.just("one", "two", "three");
 observable.subscribe(
     new Subscriber<String>() {
         @Override public void onNext(String nextValue) {
@@ -417,6 +421,12 @@ testSubscriber.assertNoErrors();
 testSubscriber.assertCompleted();
 testSubscriber.assertReceivedOnNext(Arrays.asList("item"));
 ```
+
+---
+
+# Github
+
+## TechIsFun/RxJava2-weather-example {.big}
 
 ---
 
